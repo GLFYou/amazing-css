@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "gsap": "^3.11.3",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.20",
     "pinia-plugin-persist": "^1.0.0",
+    "pixi-filters": "^5.2.0",
+    "pixi.js": "^7.2.1",
     "vue": "^3.2.37",
     "vue-router": "^4.1.4"
   },

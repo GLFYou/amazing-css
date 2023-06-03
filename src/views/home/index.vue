@@ -1,44 +1,62 @@
 <template>
   <div class="home-container">
-    <div class="imgBox"><img src="@/assets/vue.svg" alt="" /><img src="@/assets/vite.svg" alt="" /></div>
-    <div class="title1">vue3 + vite</div>
-    <div class="title2">恭喜你，项目运行成功！</div>
-    <div class="title3">准备你的开发之旅吧！</div>
+    <ul class="com-box">
+      <li class="com-item" v-for="(item, index) in componentsList" :key="index" @click="goToDetail(item.id)">{{ item.name }}</li>
+    </ul>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router'
+
+const componentsList = ref([
+  { id: 0, name: '水滴' },
+  { id: 1, name: '圆形旋转边框' },
+  { id: 2, name: '炫酷边框按钮' },
+  { id: 3, name: '水瓶文字' },
+  { id: 4, name: '滑动选择器' },
+  { id: 5, name: '大数据渲染优化' },
+  { id: 6, name: 'svg动画' },
+  { id: 7, name: 'Pixi水滴特效-法拉利' },
+  { id: 8, name: '恐龙小游戏' },
+  { id: 9, name: '顶部吸附滚动' },
+  { id: 10, name: 'GSAP-PixiJs' },
+  { id: 11, name: 'AppleWeb' }
+])
+
+const router = useRouter()
+const goToDetail = (id) => {
+  router.push(`/com-detail/${id}`)
+}
+</script>
 
 <style scoped lang="scss">
 .home-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column wrap;
+  box-sizing: border-box;
+  padding: 20px;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-image: -webkit-linear-gradient(-45deg, #35495e, #41b883, #48c9ff, #bd34fe);
   overflow: hidden;
-  .imgBox {
-    width: 320px;
-    filter: drop-shadow(0px 26px 6px rgba(66, 66, 66, 0.666));
-    img {
-      width: 150px;
-      &:first-child {
-        margin-right: 20px;
+  .com-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-flow: row wrap;
+    .com-item {
+      margin: 15px;
+      padding: 5px 10px;
+      border-radius: 10px;
+      border: 2px solid rgb(254, 52, 183);
+      font-size: 22px;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover {
+        color: rgb(254, 52, 183);
       }
     }
-  }
-  .title1 {
-    margin-top: 50px;
-    font-size: 50px;
-  }
-  .title2 {
-    margin-top: 40px;
-    font-size: 20px;
-  }
-  .title3 {
-    margin-top: 10px;
-    font-size: 20px;
   }
 }
 </style>
