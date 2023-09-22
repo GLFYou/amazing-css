@@ -294,7 +294,7 @@ export default class {
     if (showGizmos) this.CreateGizmos(spotLight)
   }
 
-  // 创建交互
+  // 创建交互行为
   createActions(mesh) {
     mesh.actionManager = new BABYLON.ActionManager(this.scene)
     // 无过渡效果
