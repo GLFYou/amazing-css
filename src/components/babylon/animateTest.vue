@@ -38,7 +38,7 @@ const create3d = () => {
   // 模型导入
   bbl.createBarrel('wall', 1)
 
-  // 创建半球形光
+  // 创建半球形光线
   bbl.createHemiLight(1, false)
   // 创建点光源
   // bbl.createPointLight(true)
