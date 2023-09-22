@@ -1,43 +1,18 @@
 <template>
   <div class="com-list-container">
     <div class="back" @click="$router.back()">返回</div>
+    <div class="home" @click="$router.push('/home')">菜单</div>
     <component class="com-box" :is="activeCom" @getVal="getVal"> </component>
   </div>
 </template>
 <script setup>
-import WaterDrop from '@/components/cool-css/water-drop.vue'
-import CircleLight from '@/components/cool-css/circle-light.vue'
-import StrokeBtn from '@/components/cool-css/stroke-btn.vue'
-import BottleText from '@/components/cool-css/bottle-text.vue'
-import SlidePicker from '@/components/cool-css/slide-picker.vue'
-import RenderOptimization from '@/components/cool-css/render-optimization.vue'
-import SvgAnimate from '@/components/cool-css/svg-animate.vue'
-import Car from '@/components/pixi/car.vue'
-import DinosaurGame from '@/components/pixi/dinosaur-game.vue'
-import GsapPixi from '@/components/pixi/gsap-pixi.vue'
-import AppleWeb from '@/components/gsap/apple-web.vue'
-
 import { useRoute } from 'vue-router'
-import ScrollSnap from '@/components/cool-css/scroll-snap.vue'
-// = ref(null)
+import comList from '@/utils/com-list.js'
 
 const getVal = (val) => {
   console.log('value:', val)
 }
-const comList = [
-  { id: 0, com: WaterDrop },
-  { id: 1, com: CircleLight },
-  { id: 2, com: StrokeBtn },
-  { id: 3, com: BottleText },
-  { id: 4, com: SlidePicker },
-  { id: 5, com: RenderOptimization },
-  { id: 6, com: SvgAnimate },
-  { id: 7, com: Car },
-  { id: 8, com: DinosaurGame },
-  { id: 9, com: ScrollSnap },
-  { id: 10, com: GsapPixi },
-  { id: 11, com: AppleWeb }
-]
+
 const route = useRoute()
 const activeCom = computed(() => {
   const comObj = comList.find((item) => item.id === Number(route.params.id))
@@ -55,7 +30,9 @@ const activeCom = computed(() => {
   min-height: 100vh;
   background-color: rgb(26, 59, 74);
   color: #fff;
-  .back {
+
+  .back,
+  .home {
     z-index: 999;
     position: fixed;
     left: 20px;
@@ -70,7 +47,12 @@ const activeCom = computed(() => {
     border-radius: 10px;
     &:hover {
       color: #fe34b7;
+      box-shadow: 0 0 80px 10px rgb(254, 52, 183);
     }
+  }
+  .home {
+    left: unset;
+    right: 20px;
   }
   .com-box {
     // width: 100vw;

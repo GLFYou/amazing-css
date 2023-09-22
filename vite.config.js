@@ -4,7 +4,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import eslintPlugin from 'vite-plugin-eslint'
 import path from 'path'
 import Components from 'unplugin-vue-components/vite'
-
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
@@ -18,7 +18,7 @@ export default defineConfig(({ mode, command }) => {
       eslintPlugin({
         include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue']
       }),
-      Components()
+      Components({ resolvers: [ElementPlusResolver()] })
     ],
     resolve: {
       // 配置路径别名

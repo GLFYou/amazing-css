@@ -7,9 +7,30 @@
         fill="white"
       />
     </svg>
+    <div class="test-box">
+      <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :defaultConfig="toolbarConfig" :mode="mode" />
+      <Editor style="height: 500px; overflow-y: hidden" v-model="valueHtml" :defaultConfig="editorConfig" :mode="mode" @onCreated="handleCreated" />
+    </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import _ from 'lodash'
+import { onMounted } from 'vue'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+
+const editorRef = shallowRef()
+const toolbarConfig = {}
+const editorConfig = { placeholder: '请输入内容' }
+const mode = 'default'
+
+const handleCreated = (editor) => {
+  editorRef.value = editor // 记录 editor 实例，重要！
+}
+
+// 内容 HTML
+const valueHtml = ref('<p>hello</p>')
+onMounted(() => {})
+</script>
 
 <style lang="scss" scoped>
 .svgAnimate-container {
@@ -18,6 +39,10 @@
       stroke-dasharray: 10;
       stroke-dashoffset: 0;
     }
+  }
+  .test-box {
+    border-radius: 10px;
+    overflow: hidden;
   }
 }
 </style>
