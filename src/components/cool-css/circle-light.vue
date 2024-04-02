@@ -9,7 +9,9 @@
     <!-- 按钮2 -->
   </div>
 </template>
-<script setup></script>
+<script setup>
+const name = 'circle-light'
+</script>
 
 <style lang="scss" scoped>
 $color1: rgb(246, 255, 0);

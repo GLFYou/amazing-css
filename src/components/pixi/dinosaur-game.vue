@@ -5,7 +5,8 @@
 <script setup>
 import * as PIXI from 'pixi.js'
 import { GlowFilter, OutlineFilter, ShockwaveFilter } from 'pixi-filters'
-import pixelFont from '@/assets/fonts/pixel-font.ttf'
+import pixelFont from '../../assets/fonts/pixel-font.ttf'
+import gameTex from '../../assets/images/textures/game.png'
 
 const pixiRef = ref(null)
 
@@ -22,7 +23,7 @@ const createPixi = () => {
   app.stage.addChild(container)
 
   // 添加恐龙精灵
-  const baseTex = PIXI.BaseTexture.from('./src/assets/images/textures/game.png')
+  const baseTex = PIXI.BaseTexture.from(gameTex)
   const dinoTex = new PIXI.Texture(baseTex, new PIXI.Rectangle(75, 0, 89, 100))
   const dinosaurSp = new PIXI.Sprite(dinoTex)
   // dinosaur.visible = false // 不可见

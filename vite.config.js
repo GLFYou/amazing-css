@@ -5,6 +5,8 @@ import eslintPlugin from 'vite-plugin-eslint'
 import path from 'path'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import WindiCSS from 'vite-plugin-windicss'
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
@@ -18,7 +20,8 @@ export default defineConfig(({ mode, command }) => {
       eslintPlugin({
         include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue']
       }),
-      Components({ resolvers: [ElementPlusResolver()] })
+      Components({ resolvers: [ElementPlusResolver()] }),
+      WindiCSS()
     ],
     resolve: {
       // 配置路径别名

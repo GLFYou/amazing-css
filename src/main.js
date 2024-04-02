@@ -8,5 +8,6 @@ import '@/assets/styles/common.scss'
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
 import Wujie from 'wujie-vue3'
+import 'virtual:windi.css'
 
 createApp(App).use(router).use(store).use(Wujie).mount('#app')
