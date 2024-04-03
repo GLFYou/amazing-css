@@ -47,6 +47,9 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .fake3d-container {
+  background-color: aqua;
+  // width: 50vw;
+  width: vw(10);
   .zdog-canvas {
   }
 }

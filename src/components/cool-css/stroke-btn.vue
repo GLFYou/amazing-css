@@ -8,7 +8,9 @@
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+const name = 'stroke-btn'
+</script>
 
 <style lang="scss" scoped>
 .stroke-btn-container {

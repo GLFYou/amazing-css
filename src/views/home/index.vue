@@ -7,7 +7,21 @@
 </template>
 <script setup>
 import { useRouter } from 'vue-router'
-import comList from '@/utils/com-list.js'
+import { ruoyiText } from '@/apis/home.js'
+const modules = import.meta.glob('@/components/**/*.vue')
+
+const comList = ref([])
+
+onMounted(async () => {
+  Promise.all(Object.values(modules).map((module) => module())).then((components) => {
+    comList.value = components.map((item, index) => {
+      return { name: item.default.__name, id: index }
+    })
+  })
+
+  const res = await ruoyiText()
+  console.log('ruoyiText', res)
+})
 
 const router = useRouter()
 const goToDetail = (id) => {

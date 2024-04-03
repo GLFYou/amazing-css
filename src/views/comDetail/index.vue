@@ -2,22 +2,37 @@
   <div class="com-list-container">
     <div class="back" @click="$router.back()">返回</div>
     <div class="home" @click="$router.push('/home')">菜单</div>
+    <!-- <template v-if="activeCom !== null"> -->
     <component class="com-box" :is="activeCom" @getVal="getVal"> </component>
+    <!-- </template> -->
   </div>
 </template>
 <script setup>
+import { reactive, shallowRef } from 'vue'
 import { useRoute } from 'vue-router'
-import comList from '@/utils/com-list.js'
+const modules = import.meta.glob('@/components/**/*.vue')
+
+const route = useRoute()
+const activeCom = shallowRef(null)
+
+onMounted(async () => {
+  Promise.all(Object.values(modules).map((module) => module())).then((components) => {
+    const comList = components.map((item, index) => {
+      return { com: item.default, id: index }
+    })
+    const activeItem = comList.find((item) => item.id === Number(route.params.id))
+    activeCom.value = activeItem.com
+  })
+})
+
+// const activeCom = computed(() => {
+//   const comObj = comList.value.find((item) => item.id === Number(route.params.id))
+//   return comObj.com
+// })
 
 const getVal = (val) => {
   console.log('value:', val)
 }
-
-const route = useRoute()
-const activeCom = computed(() => {
-  const comObj = comList.find((item) => item.id === Number(route.params.id))
-  return comObj.com
-})
 </script>
 
 <style lang="scss" scoped>

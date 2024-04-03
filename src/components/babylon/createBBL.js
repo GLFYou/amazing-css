@@ -140,10 +140,10 @@ export default class {
   createGroundMat(mesh) {
     const texArr = []
     const groundMat = new BABYLON.StandardMaterial('groundMat', this.scene)
-    const diffuseTex = new BABYLON.Texture('./src/assets/images/textures/ground/slate_driveway_diff_1k.jpg')
-    const normalTex = new BABYLON.Texture('./src/assets/images/textures/ground/slate_driveway_nor_dx_1k.jpg')
-    const aoTex = new BABYLON.Texture('./src/assets/images/textures/ground/slate_driveway_ao_1k.jpg')
-    // const displaceTex = new BABYLON.Texture('./src/assets/images/textures/ground/slate_driveway_disp_1k.jpg')
+    const diffuseTex = new BABYLON.Texture('./images/textures/ground/slate_driveway_diff_1k.jpg')
+    const normalTex = new BABYLON.Texture('./images/textures/ground/slate_driveway_nor_dx_1k.jpg')
+    const aoTex = new BABYLON.Texture('./images/textures/ground/slate_driveway_ao_1k.jpg')
+    // const displaceTex = new BABYLON.Texture('/images/textures/ground/slate_driveway_disp_1k.jpg')
     texArr.push(diffuseTex, normalTex, aoTex)
 
     groundMat.diffuseTexture = diffuseTex
@@ -163,13 +163,13 @@ export default class {
     const texArr = []
     const mat = new BABYLON.StandardMaterial('metalMat', this.scene)
     // 漫反射贴图
-    const diffuseTex = new BABYLON.Texture('./src/assets/images/textures/metal/metal_plate_diff_1k.jpg', this.scene)
+    const diffuseTex = new BABYLON.Texture('./images/textures/metal/metal_plate_diff_1k.jpg', this.scene)
     // 法线贴图
-    const normalTex = new BABYLON.Texture('./src/assets/images/textures/metal/metal_plate_bump_1k.jpg', this.scene)
+    const normalTex = new BABYLON.Texture('./images/textures/metal/metal_plate_bump_1k.jpg', this.scene)
     // 环境光遮蔽贴图
-    const aoTex = new BABYLON.Texture('./src/assets/images/textures/metal/metal_plate_ao_1k.jpg', this.scene)
+    const aoTex = new BABYLON.Texture('./images/textures/metal/metal_plate_ao_1k.jpg', this.scene)
     // 金属度贴图
-    const specTex = new BABYLON.Texture('./src/assets/images/textures/metal/metal_plate_spec_1k.jpg', this.scene)
+    const specTex = new BABYLON.Texture('./images/textures/metal/metal_plate_spec_1k.jpg', this.scene)
 
     texArr.push(diffuseTex, normalTex, specTex, aoTex)
 
@@ -191,9 +191,12 @@ export default class {
   // 创建沥青材质pbr
   createAsphalt(mesh) {
     const pbr = new BABYLON.PBRMaterial('pbr', this.scene)
-    pbr.albedoTexture = new BABYLON.Texture('./src/assets/images/textures/asphalt/asphalt_02_diff_1k.jpg')
-    pbr.bumpTexture = new BABYLON.Texture('./src/assets/images/textures/asphalt/asphalt_02_nor_gl_1k.jpg')
-    pbr.metallicTexture = new BABYLON.Texture('./src/assets/images/textures/asphalt/asphalt_02_rough_1k.jpg')
+    pbr.albedoTexture = new BABYLON.Texture('./images/textures/asphalt/asphalt_02_diff_1k.jpg')
+    // pbr.albedoTexture = new BABYLON.Texture(asltkDiff)
+    pbr.bumpTexture = new BABYLON.Texture('./images/textures/asphalt/asphalt_02_nor_gl_1k.jpg')
+    // pbr.bumpTexture = new BABYLON.Texture(asltkGl)
+    pbr.metallicTexture = new BABYLON.Texture('./images/textures/asphalt/asphalt_02_rough_1k.jpg')
+    // pbr.metallicTexture = new BABYLON.Texture(asltkRough)
 
     pbr.invertNormalMapX = true
     pbr.invertNormalMapY = true
@@ -207,7 +210,7 @@ export default class {
 
   // 创建环境
   createEnv() {
-    const envTex = BABYLON.CubeTexture.CreateFromPrefilteredData('./src/assets/images/textures/env/environment.env', this.scene)
+    const envTex = BABYLON.CubeTexture.CreateFromPrefilteredData('./images/textures/env/environment.env', this.scene)
     envTex.gammaSpace = false
     this.scene.environmentTexture = envTex
     this.scene.createDefaultSkybox(envTex, true, 1000, 0.2)
@@ -218,11 +221,11 @@ export default class {
   // 模型加载，油桶
   async createBarrel(modelName, scale) {
     // 同步方式
-    // BABYLON.SceneLoader.ImportMesh('', './src/assets/models/', 'barrel.glb', this.scene, (mesh) => {
+    // BABYLON.SceneLoader.ImportMesh('', './models/', 'barrel.glb', this.scene, (mesh) => {
     //   console.log('mesh: ', mesh)
     // })
     // 异步方式
-    const models = await BABYLON.SceneLoader.ImportMeshAsync('', './src/assets/models/', modelName + '.glb', this.scene, (e) => {
+    const models = await BABYLON.SceneLoader.ImportMeshAsync('', './models/', modelName + '.glb', this.scene, (e) => {
       console.log(e)
     })
 

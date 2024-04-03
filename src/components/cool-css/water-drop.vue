@@ -4,6 +4,7 @@
   </div>
 </template>
 <script setup>
+const name = 'water-drop'
 </script>
 
 <style lang="scss" scoped>

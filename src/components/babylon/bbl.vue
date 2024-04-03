@@ -5,7 +5,6 @@
 import * as BABYLON from 'babylonjs'
 import 'babylonjs-loaders'
 import { onBeforeUnmount, onMounted } from 'vue'
-
 const create3d = () => {
   const canvas = document.createElement('canvas')
   canvas.width = window.innerWidth
@@ -128,11 +127,11 @@ const create3d = () => {
   // scene.clearColor = new BABYLON.Color3(0.4, 0.4, 0.7)
 
   // 纹理图片
-  boxMaterial.diffuseTexture = new BABYLON.Texture('./src/assets/images/textures/uni.jpg', scene)
+  boxMaterial.diffuseTexture = new BABYLON.Texture('./images/textures/uni.jpg', scene)
 
   // // 模型加载及动画
   // let animation
-  // BABYLON.SceneLoader.Append('./src/assets/models/', 'BrainStem.glb', scene, (gltf) => {
+  // BABYLON.SceneLoader.Append('./models/', 'BrainStem.glb', scene, (gltf) => {
   //   console.log(gltf.animationGroups[0])
   //   animation = gltf.animationGroups[0]
   //   animation.speedRatio = 0.5 // 控制播放倍速
@@ -149,7 +148,7 @@ const create3d = () => {
   const axesViewer = new BABYLON.AxesViewer(scene, 5)
 
   // 音乐加载
-  const myMusic = new BABYLON.Sound('mhwt', './src/assets/music/mohewuting.mp3', scene, () => {}, { loop: true, autoplay: false })
+  const myMusic = new BABYLON.Sound('mhwt', './music/mohewuting.mp3', scene, () => {}, { loop: true, autoplay: false })
 
   console.log('box:', box)
 }

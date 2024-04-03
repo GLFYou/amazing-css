@@ -2,7 +2,7 @@ import axios from 'axios'
 import { NPStart, NPDone } from '@/utils/nprogress.js'
 
 // const baseURL = 'http://api.qingyunke.com/api.php'
-const baseURL = 'apis/api'
+const baseURL = '/apis/'
 const instance = axios.create({
   baseURL,
   timeout: 5000

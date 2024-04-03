@@ -4,7 +4,6 @@
 <script setup>
 import * as PIXI from 'pixi.js'
 import { GlowFilter, OutlineFilter, ShockwaveFilter } from 'pixi-filters'
-
 const pixiRef = ref(null)
 
 // 创建Pixi
@@ -18,7 +17,7 @@ const createPixi = () => {
   pixiRef.value.appendChild(app.view)
 
   const container = new PIXI.Container()
-  const carSp = PIXI.Sprite.from('./src/assets/images/textures/car.jpg')
+  const carSp = PIXI.Sprite.from('./images/textures/car.jpg')
   carSp.scale.set(1.3, 1.3)
   carSp.width = (app.screen.height * 16) / 9
   carSp.height = app.screen.height
@@ -43,7 +42,7 @@ const createPixi = () => {
   text.anchor.set(0.5)
   container.addChild(text)
   // 添加置换滤镜
-  const displacementSprite = PIXI.Sprite.from('./src/assets/images/textures/displacement.jpg')
+  const displacementSprite = PIXI.Sprite.from('./images/textures/displacement.jpg')
   displacementSprite.scale.set(1.3)
   displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT // 重复贴图
   const displacementFilter = new PIXI.DisplacementFilter(displacementSprite)
