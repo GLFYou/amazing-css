@@ -12,8 +12,7 @@
 <script setup>
 import _ from 'lodash'
 import { onMounted } from 'vue'
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-
+// 呵呵，这里是一个炫酷的动画
 const editorRef = shallowRef()
 const toolbarConfig = {}
 const editorConfig = { placeholder: '请输入内容' }
