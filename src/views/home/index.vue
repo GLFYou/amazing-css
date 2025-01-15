@@ -13,14 +13,13 @@ const modules = import.meta.glob('@/components/**/*.vue')
 const comList = ref([])
 
 onMounted(async () => {
-  Promise.all(Object.values(modules).map((module) => module())).then((components) => {
-    comList.value = components.map((item, index) => {
-      return { name: item.default.__name, id: index }
-    })
-  })
+  const components = await Promise.all(Object.values(modules).map((module) => module()))
+  console.log('components', components)
+  comList.value = components.map((item, index) => ({ name: item.default.__name, id: index }))
+  console.log('comList', comList.value)
 
-  const res = await ruoyiText()
-  console.log('ruoyiText', res)
+  // const res = await ruoyiText()
+  // console.log('ruoyiText', res)
 })
 
 const router = useRouter()

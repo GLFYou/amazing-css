@@ -1,5 +1,23 @@
 <template>
   <div class="svgAnimate-container">
+    <Swiper
+      class="swiper"
+      :slides-per-view="1"
+      :navigation="true"
+      :modules="modules"
+      :effect="'cube'"
+      :grabCursor="true"
+      :cubeEffect="{
+        shadow: true,
+        slideShadows: true,
+        shadowOffset: 20,
+        shadowScale: 0.94
+      }"
+    >
+      <SwiperSlide class="swiper-slide">Slide 1</SwiperSlide>
+      <SwiperSlide class="swiper-slide">Slide 1</SwiperSlide>
+      <SwiperSlide class="swiper-slide">Slide 1</SwiperSlide>
+    </Swiper>
     <svg class="cughttp://localhost:3000/Logo" width="401" height="49" viewBox="0 0 401 49" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         class="path"
@@ -12,11 +30,16 @@
 <script setup>
 import _ from 'lodash'
 import { onMounted } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, EffectCube } from 'swiper/modules'
+import { getUserInfo, getArticleList, getTag } from '@/apis/strapi.js'
+
 // 呵呵，这里是一个炫酷的动画
 const editorRef = shallowRef()
 const toolbarConfig = {}
 const editorConfig = { placeholder: '请输入内容' }
 const mode = 'default'
+const modules = [Navigation, EffectCube]
 
 const handleCreated = (editor) => {
   editorRef.value = editor // 记录 editor 实例，重要！
@@ -24,11 +47,35 @@ const handleCreated = (editor) => {
 
 // 内容 HTML
 const valueHtml = ref('<p>hello</p>')
-onMounted(() => {})
+onMounted(async () => {
+  const res = await getUserInfo()
+  console.log(res)
+  const res2 = await getArticleList({ 'populate[0]': 'cover' })
+  console.log(res2)
+  const res3 = await getTag({ 'populate[articles][populate][0]': 'cover' })
+  console.log(res3)
+})
 </script>
 
 <style lang="scss" scoped>
 .svgAnimate-container {
+  width: 100vw;
+  height: 100vh;
+  .swiper {
+    width: 50%;
+    height: 50%;
+    .swiper-slide {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(0deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+      font-size: 64px;
+      line-height: 1em;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
   .cugLogo {
     .path {
       stroke-dasharray: 10;

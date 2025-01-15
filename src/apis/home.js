@@ -7,3 +7,7 @@ export const getSlideshow = () => {
 export const ruoyiText = () => {
   return request('/workflow/category/listAll', 'get', {})
 }
+
+export const strapiTest = () => {
+  return request('/workflow/category/listAll', 'get', {})
+}
