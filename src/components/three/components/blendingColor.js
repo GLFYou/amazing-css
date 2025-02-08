@@ -6,142 +6,105 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
 import gsap from 'gsap'
-let car, renderer, camera, scene, box, stats, gui, folder
+let car, renderer, camera, scene, box, stats, gui, folder, controls, light
 const createThree = () => {
   stats = new Stats()
   box = document.getElementById('box')
   scene = new THREE.Scene()
-  camera = new THREE.PerspectiveCamera(75, box.clientWidth / box.clientHeight, 0.1, 1000)
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, logarithmicDepthBuffer: true })
+  camera = new THREE.PerspectiveCamera(50, box.clientWidth / box.clientHeight, 0.1, 1000)
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, logarithmicDepthBuffer: true, preserveDrawingBuffer: true })
   gui = new GUI()
   folder = gui.addFolder('模型混合着色器')
 
-  camera.position.set(20, 20, 20)
+  camera.position.set(100, 100, 100)
   renderer.setSize(box.clientWidth, box.clientHeight)
   renderer.setPixelRatio(window.devicePixelRatio)
   box.appendChild(renderer.domElement)
-  // box.appendChild(stats.dom)
-  // 网格模型，随机生成模型------------
-  // const geo = new THREE.OctahedronGeometry(5, 0)
-  // const mat = new THREE.MeshBasicMaterial({
-  //   color: 0x00ff00,
-  //   transparent: true,
-  //   opacity: 0.8
+
+  controls = new OrbitControls(camera, renderer.domElement)
+  controls.maxPolarAngle = Math.PI / 2.5
+  controls.enableDamping = true
+
+  light = new THREE.DirectionalLight(0xffffff, 1)
+  light.position.set(200, 200, 200)
+
+  //工厂--------------
+  // const textureCube = new THREE.CubeTextureLoader().setPath('./images/textures/envCube/sky/').load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg'])
+  // const loader = new GLTFLoader()
+  // loader.load('./models/工厂.glb', (gltf) => {
+  //   gltf.scene.traverse((obj) => {})
+  //   scene.add(gltf.scene)
   // })
-  // for (let i = 0; i < 500; i++) {
-  //   const mesh = new THREE.Mesh(geo, mat)
-  //   mesh.position.set(Math.random() * 100 - 50, Math.random() * 100 - 50, Math.random() * 100 - 50)
-  //   scene.add(mesh)
+  //圆弧------------
+  // const geometry = new THREE.BufferGeometry() //创建一个几何体对象
+  // const R = 50 //圆弧半径
+  // const N = 100 //分段数量
+  // const sp = (2 * Math.PI) / N //两个相邻点间隔弧度
+  // const arr = []
+  // const cx = 0
+  // const cy = 50
+  // for (let i = 0; i < N; i++) {
+  //   const angle = sp * i //当前点弧度
+  //   // 以坐标原点为中心，在XOY平面上生成圆弧上的顶点数据
+  //   const x = cx + R * Math.cos(angle)
+  //   const y = cy + R * Math.sin(angle)
+  //   arr.push(x, y, 0)
   // }
-  // 点模型-------------
-  // const geo = new THREE.BufferGeometry()
-  // const vertices = new Float32Array([
-  //   0,
-  //   0,
-  //   0 //顶点1坐标
-  // ])
-  // const attr = new THREE.BufferAttribute(vertices, 3)
-  // geo.attributes.position = attr
-  // const material = new THREE.PointsMaterial({
-  //   color: 0x00ff00,
-  //   transparent: true,
-  //   opacity: 0.8,
-  //   size: 10
+  // const vertices = new Float32Array(arr)
+  // const attribute = new THREE.BufferAttribute(vertices, 3)
+  // geometry.attributes.position = attribute
+  // const matrial = new THREE.LineBasicMaterial({
+  //   color: 0xffffff
   // })
-  // const points = new THREE.Points(geo, material)
-  // scene.add(points)
-  // 线模型-------------
-  // const geo = new THREE.BufferGeometry()
-  // const vertices = new Float32Array([
-  //   0,
-  //   0,
-  //   0, // 顶点1
-  //   10,
-  //   0,
-  //   0, // 顶点2
-  //   10,
-  //   10,
-  //   0, // 顶点3
-  //   0,
-  //   0,
-  //   0, // 顶点4
-  //   10,
-  //   10,
-  //   0, // 顶点6
-  //   0,
-  //   10,
-  //   0 // 顶点5
-  // ])
-  // const attr = new THREE.BufferAttribute(vertices, 3)
-  // geo.attributes.position = attr
-  // const material = new THREE.MeshBasicMaterial({
-  //   color: 0xeeff00,
-  //   side: THREE.DoubleSide
-  // })
-  // const points = new THREE.Mesh(geo, material)
-  // scene.add(points)
-  // 局部坐标世界坐标--------------
-  // const geo = new THREE.BoxGeometry(10, 10, 10)
-  // const mat = new THREE.MeshBasicMaterial({
-  //   color: 0x00ff00
-  // })
-  // const wireframe = new THREE.WireframeGeometry(geo)
-  // const line = new THREE.LineSegments(wireframe)
-  // const group = new THREE.Group()
-  // group.add(line)
-  // scene.add(group)
-  // line.position.set(10, 0, 0)
-  // line.geometry.translate(20, 0, 0)
-  // group.position.set(10, 0, 0)
-  // console.log(line.position)
-  // const worldPos = new THREE.Vector3()
-  // line.getWorldPosition(worldPos)
-  // console.log(worldPos)
-  // line.position.set(10, 10, 0)
-  // line.rotation.set(0, Math.PI / 4, 0)
-  // gsap.to(line.rotation, { duration: 5, y: Math.PI * 2, repeat: -1, ease: 'none' })
-  // 纹理贴图--------------
-  const sphere = new THREE.PlaneGeometry(20, 10)
-  const texLoader = new THREE.TextureLoader()
-  const uvs = new Float32Array([0, 0.5, 0.5, 0.5, 0, 0, 0.5, 0])
-  // sphere.attributes.uv = new THREE.BufferAttribute(uvs, 2)
-
-  const tex = texLoader.load('./images/textures/uni.jpg')
-
-  tex.wrapS = THREE.RepeatWrapping
-  tex.wrapT = THREE.RepeatWrapping
-  gsap.to(tex.offset, {
-    x: 1,
-    duration: 1,
-    repeat: -1,
-    ease: 'none'
+  // const line = new THREE.LineLoop(geometry, matrial)
+  // scene.add(line)
+  //直接用api画圆--------------
+  const R = 80
+  const H = 200
+  const line = new THREE.LineCurve(new THREE.Vector2(R, H), new THREE.Vector2(R, 0))
+  const arc = new THREE.ArcCurve(0, 0, R, 0, Math.PI, true)
+  const line2 = new THREE.LineCurve(new THREE.Vector2(-R, 0), new THREE.Vector2(-R, H))
+  const CurvePath = new THREE.CurvePath()
+  CurvePath.curves.push(line, arc, line2)
+  const pointsArr = CurvePath.getPoints(16)
+  const geometry = new THREE.BufferGeometry().setFromPoints(pointsArr)
+  const material = new THREE.LineBasicMaterial({
+    color: 0xffffff
   })
-  const mat = new THREE.MeshBasicMaterial({
-    map: tex,
-    side: THREE.DoubleSide
+  const line3 = new THREE.Line(geometry, material)
+  scene.add(line3)
+  const pointMaterial = new THREE.PointsMaterial({
+    color: 0xffff00,
+    size: 5
   })
-  const mesh = new THREE.Mesh(sphere, mat)
-  scene.add(mesh)
-  const gridHelper = new THREE.GridHelper(100, 100, 0x00ffff, 0x009999)
-  scene.add(gridHelper)
-  // -------------------
-  new OrbitControls(camera, renderer.domElement)
+  const point = new THREE.Points(geometry, pointMaterial)
+  scene.add(point)
+  // -----------------
+  scene.add(light)
+  scene.add(new THREE.AmbientLight(0xffffff, 0.6))
+  scene.add(new THREE.AxesHelper(1000))
+  animate()
   window.onresize = () => {
     renderer.setSize(box.clientWidth, box.clientHeight)
     camera.aspect = box.clientWidth / box.clientHeight
     camera.updateProjectionMatrix()
   }
-
-  scene.add(new THREE.AmbientLight(0xffffff, 3))
-  scene.add(new THREE.AxesHelper(1000))
-  animate()
 }
 
 function animate() {
   requestAnimationFrame(animate)
   car?.render?.()
   stats.update()
+  controls.update()
   renderer.render(scene, camera)
+}
+
+export const download = () => {
+  const a = document.createElement('a')
+  const canvas = renderer.domElement
+  a.href = canvas.toDataURL('image/jpg')
+  a.download = 'test.jpg'
+  a.click()
 }
 
 export default createThree
