@@ -66,19 +66,125 @@ const createThree = () => {
   const line2 = new THREE.LineCurve(new THREE.Vector2(-R, 0), new THREE.Vector2(-R, H))
   const CurvePath = new THREE.CurvePath()
   CurvePath.curves.push(line, arc, line2)
-  const pointsArr = CurvePath.getPoints(16)
-  const geometry = new THREE.BufferGeometry().setFromPoints(pointsArr)
-  const material = new THREE.LineBasicMaterial({
-    color: 0xffffff
+  // const pointsArr = CurvePath.getPoints(16)
+  // const geometry = new THREE.BufferGeometry().setFromPoints(pointsArr)
+  // const material = new THREE.LineBasicMaterial({
+  //   color: 0xffffff
+  // })
+  // const line3 = new THREE.Line(geometry, material)
+  // scene.add(line3)
+  // const pointMaterial = new THREE.PointsMaterial({
+  //   color: 0xffff00,
+  //   size: 5
+  // })
+  // const point = new THREE.Points(geometry, pointMaterial)
+  // scene.add(point)
+  // const path = new THREE.CatmullRomCurve3([new THREE.Vector3(-50, 20, 90), new THREE.Vector3(-10, 40, 40), new THREE.Vector3(0, 0, 0), new THREE.Vector3(60, -60, 0), new THREE.Vector3(70, 0, 80)])
+
+  // const geometry2 = new THREE.TubeGeometry(CurvePath, 50, 2, 25)
+  // const material2 = new THREE.MeshLambertMaterial({
+  //   color: 0x00ff00,
+  //   side: THREE.DoubleSide
+  // })
+  // const mesh = new THREE.Mesh(geometry2, material2)
+  // scene.add(mesh)
+
+  // const curve = new THREE.SplineCurve([
+  //   new THREE.Vector2(0, 50),
+  //   new THREE.Vector2(10, 50),
+  //   new THREE.Vector2(8, 40),
+  //   new THREE.Vector2(15, 35),
+  //   new THREE.Vector2(18, 30),
+  //   new THREE.Vector2(15, 25),
+  //   new THREE.Vector2(8, 15),
+  //   new THREE.Vector2(15, 10),
+  //   new THREE.Vector2(10, 0),
+  //   new THREE.Vector2(0, 0)
+  // ])
+  // const points = curve.getPoints(50)
+  // const pointGeo = new THREE.BufferGeometry().setFromPoints(points)
+  // const pointMe = new THREE.Points(
+  //   pointGeo,
+  //   new THREE.PointsMaterial({
+  //     color: 0xffff00,
+  //     size: 2
+  //   })
+  // )
+  // scene.add(pointMe)
+
+  // const latheGeo = new THREE.LatheGeometry(points, 50)
+  // const lathe = new THREE.Mesh(
+  //   latheGeo,
+  //   new THREE.MeshLambertMaterial({
+  //     color: 0x00ff00,
+  //     side: THREE.DoubleSide
+  //   })
+  // )
+  // scene.add(lathe)
+
+  // const extrudeGeo = new THREE.ExtrudeGeometry(new THREE.Shape(curve.getPoints(500)), {
+  //   curveSegments: 50,
+  //   depth: 10,
+  //   bevelThickness: 1,
+  //   bevelSegments: 10
+  // })
+  // const extrude = new THREE.Mesh(
+  //   extrudeGeo,
+  //   new THREE.MeshLambertMaterial({
+  //     color: 0x00ff00,
+  //     side: THREE.DoubleSide
+  //   })
+  // )
+  // scene.add(extrude)
+
+  // const loader = new GLTFLoader()
+  // loader.load('./models/建筑模型.gltf', (gltf) => {
+  //   // scene.add(gltf.scene)
+  //   gltf.scene.traverse((obj) => {
+  //     if (obj.isMesh) {
+  //       obj.material = new THREE.MeshLambertMaterial({
+  //         color: 0x004444,
+  //         transparent: true,
+  //         opacity: 0.5
+  //       })
+  //       const edges = new THREE.EdgesGeometry(obj.geometry)
+  //       const edgesMaterial = new THREE.LineBasicMaterial({
+  //         color: 0x00ffff
+  //       })
+  //       const line = new THREE.LineSegments(edges, edgesMaterial)
+  //       obj.add(line)
+  //     }
+  //     scene.add(gltf.scene)
+  //   })
+  // })
+
+  // const loader = new GLTFLoader()
+  // loader.load('./models/地形.glb', (gltf) => {
+  //   const mesh = gltf.scene.children[0]
+  //   const pos = mesh.geometry.attributes.position
+  //   const c1 = new THREE.Color(0x0000ff)
+  //   const c2 = new THREE.Color(0xff0000)
+  //   const colorArr = []
+  //   for (let i = 0; i < pos.count; i++) {
+  //     const c = c1.clone().lerp(c2, pos.getY(i) / 100)
+  //     colorArr.push(c.r, c.g, c.b)
+  //   }
+  //   const colors = new Float32Array(colorArr)
+
+  //   mesh.geometry.attributes.color = new THREE.BufferAttribute(colors, 3)
+  //   mesh.material = new THREE.MeshLambertMaterial({
+  //     vertexColors: true
+  //   })
+  //   scene.add(gltf.scene)
+  // })
+
+  const loader = new GLTFLoader()
+  loader.load('./models/地形.glb', (gltf) => {
+    const mesh = gltf.scene.children[0]
+
+    scene.add(gltf.scene)
   })
-  const line3 = new THREE.Line(geometry, material)
-  scene.add(line3)
-  const pointMaterial = new THREE.PointsMaterial({
-    color: 0xffff00,
-    size: 5
-  })
-  const point = new THREE.Points(geometry, pointMaterial)
-  scene.add(point)
+
   // -----------------
   scene.add(light)
   scene.add(new THREE.AmbientLight(0xffffff, 0.6))
@@ -93,6 +199,7 @@ const createThree = () => {
 
 function animate() {
   requestAnimationFrame(animate)
+
   car?.render?.()
   stats.update()
   controls.update()
